@@ -1,0 +1,468 @@
+{
+  "info": {
+    "name": "Mahaprastanam Operations Suite - AP Govt API",
+    "description": "Complete Postman Collection for Mahaprastanam Operations Suite API endpoints (Base URL: https://one.bhspl.in/mp/api)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://one.bhspl.in/mp/api",
+      "type": "string"
+    },
+    {
+      "key": "accessToken",
+      "value": "YOUR_BEARER_TOKEN_HERE",
+      "type": "string"
+    },
+    {
+      "key": "activeRole",
+      "value": "ADMIN",
+      "type": "string"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{accessToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "1. Auth & Profile",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"identity\": \"9502017775\",\n  \"phone\": \"9502017775\",\n  \"password\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refresh_token\": \"YOUR_REFRESH_TOKEN\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/refresh",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "refresh"]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "X-Active-Role", "value": "{{activeRole}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/logout",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "logout"]
+            }
+          }
+        },
+        {
+          "name": "Get Current User Me",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Active-Role", "value": "{{activeRole}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "me"]
+            }
+          }
+        },
+        {
+          "name": "Profile Stats",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Active-Role", "value": "{{activeRole}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/profile-stats?project_id=4",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "profile-stats"],
+              "query": [
+                { "key": "project_id", "value": "4" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Beneficiaries & Transit",
+      "item": [
+        {
+          "name": "List Beneficiaries",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Active-Role", "value": "{{activeRole}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/beneficiaries",
+              "host": ["{{baseUrl}}"],
+              "path": ["beneficiaries"]
+            }
+          }
+        },
+        {
+          "name": "Submit Beneficiary Trip",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "X-Active-Role", "value": "{{activeRole}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vehicle_id\": 12,\n  \"driver_id\": 45,\n  \"start_district\": \"Guntur\",\n  \"destination_district\": \"Tenali\",\n  \"odo_start\": 42180,\n  \"status\": \"SUBMITTED\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/beneficiaries",
+              "host": ["{{baseUrl}}"],
+              "path": ["beneficiaries"]
+            }
+          }
+        },
+        {
+          "name": "Active Live Trip",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Active-Role", "value": "{{activeRole}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/beneficiaries/live/active",
+              "host": ["{{baseUrl}}"],
+              "path": ["beneficiaries", "live", "active"]
+            }
+          }
+        },
+        {
+          "name": "Beneficiary Dashboard Stats",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Active-Role", "value": "{{activeRole}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/beneficiaries/dashboard/stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["beneficiaries", "dashboard", "stats"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Vehicles & Drivers",
+      "item": [
+        {
+          "name": "List Vehicles",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Active-Role", "value": "{{activeRole}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vehicles",
+              "host": ["{{baseUrl}}"],
+              "path": ["vehicles"]
+            }
+          }
+        },
+        {
+          "name": "Vehicle Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Active-Role", "value": "{{activeRole}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vehicles/12",
+              "host": ["{{baseUrl}}"],
+              "path": ["vehicles", "12"]
+            }
+          }
+        },
+        {
+          "name": "Vehicle Drivers Roster",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Active-Role", "value": "{{activeRole}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vehicle-drivers",
+              "host": ["{{baseUrl}}"],
+              "path": ["vehicle-drivers"]
+            }
+          }
+        },
+        {
+          "name": "My Assigned Vehicle",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Active-Role", "value": "{{activeRole}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vehicle-drivers/mine",
+              "host": ["{{baseUrl}}"],
+              "path": ["vehicle-drivers", "mine"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Maintenance Module",
+      "item": [
+        {
+          "name": "List Maintenance Records",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Active-Role", "value": "{{activeRole}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/maintenance",
+              "host": ["{{baseUrl}}"],
+              "path": ["maintenance"]
+            }
+          }
+        },
+        {
+          "name": "Maintenance Alerts",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Active-Role", "value": "{{activeRole}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/maintenance/alerts",
+              "host": ["{{baseUrl}}"],
+              "path": ["maintenance", "alerts"]
+            }
+          }
+        },
+        {
+          "name": "Maintenance Dashboard Stats",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Active-Role", "value": "{{activeRole}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/maintenance/dashboard/stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["maintenance", "dashboard", "stats"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Fuel Module",
+      "item": [
+        {
+          "name": "List Fuel Logs",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Active-Role", "value": "{{activeRole}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/fuel",
+              "host": ["{{baseUrl}}"],
+              "path": ["fuel"]
+            }
+          }
+        },
+        {
+          "name": "Fuel Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Active-Role", "value": "{{activeRole}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/fuel/dashboard",
+              "host": ["{{baseUrl}}"],
+              "path": ["fuel", "dashboard"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Off-Road Module",
+      "item": [
+        {
+          "name": "List Off-Road Incidents",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Active-Role", "value": "{{activeRole}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/offroad",
+              "host": ["{{baseUrl}}"],
+              "path": ["offroad"]
+            }
+          }
+        },
+        {
+          "name": "Pending Off-Road Approvals",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Active-Role", "value": "{{activeRole}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/offroad/approvals",
+              "host": ["{{baseUrl}}"],
+              "path": ["offroad", "approvals"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "7. Submissions & Checklists",
+      "item": [
+        {
+          "name": "List Submissions",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Active-Role", "value": "{{activeRole}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/submissions",
+              "host": ["{{baseUrl}}"],
+              "path": ["submissions"]
+            }
+          }
+        },
+        {
+          "name": "Pending Submissions Review",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Active-Role", "value": "{{activeRole}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/submissions/pending",
+              "host": ["{{baseUrl}}"],
+              "path": ["submissions", "pending"]
+            }
+          }
+        },
+        {
+          "name": "List Templates",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Active-Role", "value": "{{activeRole}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/templates",
+              "host": ["{{baseUrl}}"],
+              "path": ["templates"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "8. GPS Telematics & Dashboards",
+      "item": [
+        {
+          "name": "Live GPS Vehicles",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Active-Role", "value": "{{activeRole}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/gps/vehicles",
+              "host": ["{{baseUrl}}"],
+              "path": ["gps", "vehicles"]
+            }
+          }
+        },
+        {
+          "name": "Admin Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Active-Role", "value": "{{activeRole}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/dashboard/admin",
+              "host": ["{{baseUrl}}"],
+              "path": ["dashboard", "admin"]
+            }
+          }
+        },
+        {
+          "name": "Geography Districts",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Active-Role", "value": "{{activeRole}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/geography/districts",
+              "host": ["{{baseUrl}}"],
+              "path": ["geography", "districts"]
+            }
+          }
+        },
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
